@@ -7,3 +7,14 @@ docker stop NAME
 docker run node 
 docker ps -a 
 docker run -it node
+
+docker build .
+docker ps
+
+docker run -p 3000:80  fd503fd59e35
+
+EXPLAIN: 
+-p = publish 
+3000 = local 
+80 = container 
+fd503fd59e35  = ID
