@@ -18,3 +18,9 @@ EXPLAIN:
 3000 = local 
 80 = container 
 fd503fd59e35  = ID
+
+
+Added ! 
+rebuild image
+and 
+docker run -p 3000:80 ID 
