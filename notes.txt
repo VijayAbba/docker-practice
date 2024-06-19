@@ -24,3 +24,5 @@ Added !
 rebuild image
 and 
 docker run -p 3000:80 ID 
+
+
