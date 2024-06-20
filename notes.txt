@@ -4,7 +4,7 @@ docker run -p 3000:3000 ID //
 
 docker stop NAME // stop container 
 
-docker run node // create new container from image // block terminal
+docker run node // create new container from image // block terminal // runnign in foreground
 docker ps -a   // Shows all container 
 docker run -it node
 
@@ -13,18 +13,25 @@ docker ps // shows runing containers
 
 docker run -p 3000:80  fd503fd59e35
 
-EXPLAIN: 
--p = publish 
-3000 = local 
-80 = container 
-fd503fd59e35  = ID
+    EXPLAIN: 
+        -p = publish 
+        3000 = local 
+        80 = container 
+        fd503fd59e35  = IMAGE ID
 
 
-Added ! html 
-rebuild image again
-and 
-docker run -p 3000:80 ID 
+    Added ! html 
+    rebuild image again
+    and 
+  docker run -p 3000:80 ID 
 
 
-docker start NAME  // start container  // dont block terminal
+docker start NAME  // start container  // dont block terminal // running in background
+
+docker run -p 3000:80 -d 27af218fcefb // -d detch mode
+docker container attach CONTAINER_NAME/CONTAINER_ID // attach in terminal 
+
+docker logs CONTAINER_NAME/CONTAINER_ID // prints all previous logs
+docker logs -f CONTAINER_NAME/CONTAINER_ID // follows 
+docker start -a CONTAINER_NAME/CONTAINER_ID // start with attach mode 
 
