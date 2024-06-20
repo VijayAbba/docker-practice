@@ -35,3 +35,16 @@ docker logs CONTAINER_NAME/CONTAINER_ID // prints all previous logs
 docker logs -f CONTAINER_NAME/CONTAINER_ID // follows 
 docker start -a CONTAINER_NAME/CONTAINER_ID // start with attach mode 
 
+docker run IMAGE_ID // can't run interactively // ex: input in python
+
+docker run -it IMAGE_ID // 
+  // i = interactive , Keep STDIN open even if not attach
+  // t = tty , Allocate a pseudo-TTY , TTY terminal
+
+// then if you run 
+docker start CONTAINER_NAME 
+    // you can't access terminal because detch mode
+docker start -a CONTAINER_NAME 
+    // start with interactive terminal but only one input / only output 
+
+docker start -a -i  stoic_hamilton // 
