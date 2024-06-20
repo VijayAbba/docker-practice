@@ -1,15 +1,15 @@
-docker build .
+docker build . // 
 
-docker run -p 3000:3000 ID
+docker run -p 3000:3000 ID // 
 
-docker stop NAME
+docker stop NAME // stop container 
 
-docker run node 
-docker ps -a 
+docker run node // create new container from image // block terminal
+docker ps -a   // Shows all container 
 docker run -it node
 
-docker build .
-docker ps
+docker build . // builds image from current folder Dockerfile 
+docker ps // shows runing containers
 
 docker run -p 3000:80  fd503fd59e35
 
@@ -20,9 +20,11 @@ EXPLAIN:
 fd503fd59e35  = ID
 
 
-Added ! 
-rebuild image
+Added ! html 
+rebuild image again
 and 
 docker run -p 3000:80 ID 
 
+
+docker start NAME  // start container  // dont block terminal
 
