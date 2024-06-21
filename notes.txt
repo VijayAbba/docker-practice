@@ -63,3 +63,7 @@ docker run -p 3000:80 -d --rm  d74954471f2e // --rm : Automatically removes the 
 
 
 docker image inspect IMAGE_ID // Inspecting Images
+
+
+docker cp dummy/. CONTAINER_NAME:/test // /. = include all files in that folder 
+
