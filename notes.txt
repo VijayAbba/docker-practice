@@ -48,3 +48,12 @@ docker start -a CONTAINER_NAME
     // start with interactive terminal but only one input / only output 
 
 docker start -a -i  stoic_hamilton // 
+
+docker rm CONTAINER_NAME // removes stopped container
+docker rm CONTAINER_NAME CONTAINER_NAME // remove multiple container , seperate by ,
+
+docker container prune // remove al stopped containers at once
+docker rmi IMAGE_ID // removes if image is not used, so container should be removed first
+docker rmi IMAGE_ID  IMAGE_ID
+
+docker image prune // removes all unused images
