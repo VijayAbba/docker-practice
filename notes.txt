@@ -61,3 +61,5 @@ docker image prune // removes all unused images
 
 docker run -p 3000:80 -d --rm  d74954471f2e // --rm : Automatically removes the container when it exits
 
+
+docker image inspect IMAGE_ID // Inspecting Images
