@@ -54,6 +54,10 @@ docker rm CONTAINER_NAME CONTAINER_NAME // remove multiple container , seperate 
 
 docker container prune // remove al stopped containers at once
 docker rmi IMAGE_ID // removes if image is not used, so container should be removed first
-docker rmi IMAGE_ID  IMAGE_ID
+docker rmi IMAGE_ID  IMAGE_ID // remove multiple 
 
 docker image prune // removes all unused images
+
+
+docker run -p 3000:80 -d --rm  d74954471f2e // --rm : Automatically removes the container when it exits
+
