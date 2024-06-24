@@ -83,3 +83,16 @@ docker build -t goals:latest
 
 side-note: if you want to remove ALL images, incl.
 tagged images, you need to run docker images prune -a 
+
+//////////////////////////////////////////////////
+// share: docker push IMAGE_NAME
+// use: docker pull IMAGE_NAME
+
+// rename is cloning 
+// renaming to docker hub name 
+
+docker tag IMAGE_NAME:latest academind/node-hello-world 
+
+docker push academind/node-hello-world
+
+////////////////////////////////////////////////// 
