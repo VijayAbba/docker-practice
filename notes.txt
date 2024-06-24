@@ -96,3 +96,16 @@ docker tag IMAGE_NAME:latest academind/node-hello-world
 docker push academind/node-hello-world
 
 ////////////////////////////////////////////////// 
+
+docker image prune -a
+
+docker logout
+
+docker run -p 8000:80 --rm vijaykrishnaabba/node-hello-world
+
+// docker run will pulls automatically, if not exists.
+
+// if exists locally it will not update to latest automatically.
+
+////////////////////////////////////////////////// 
+
