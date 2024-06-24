@@ -67,3 +67,19 @@ docker image inspect IMAGE_ID // Inspecting Images
 
 docker cp dummy/. CONTAINER_NAME:/test // /. = include all files in that folder 
 
+--name string  // Assing a name to the container
+docker run -p 3000:80 -d --rm --name goalsapp IMAGE_ID
+
+
+// name:tag
+FROM node:14
+
+-t , --tag list // Name and optonally a tag in the 'name:tag' format
+
+
+// Assing name to image   // -t name:tag
+docker build -t goals:latest 
+
+
+side-note: if you want to remove ALL images, incl.
+tagged images, you need to run docker images prune -a 
