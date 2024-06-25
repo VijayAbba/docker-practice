@@ -118,3 +118,22 @@ docker run -p 3000:80 -d --name feedback-app --rm feedback-node
 // checking current running docker 
 docker ps 
 
+//////////////////////////////////////////////////
+
+docker ps
+
+docker stop  feedback-app
+// file awesome.txt will be deleted
+
+// running without --rm
+docker run -p 3000:80 -d --name feedback-app feedback-node
+
+
+docker stop  feedback-app
+
+docker start feedback-app
+// awsome file will presist now , becuase we don't not deleted container 
+
+problem ?
+data stored in one container will be lost after deletion of the container
+
