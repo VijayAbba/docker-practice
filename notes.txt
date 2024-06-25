@@ -276,3 +276,51 @@ D:\Academind\Code\docker-practice\section-01
 // in order to store node_modules use anonymous volumes 
 docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback -v "D:\Academind\Code\docker-practice\section-01:/app" -v /app/node_modules feedback-node:volumes 
 
+//////////////////////////////////////////////////
+
+
+/mnt/d/Academind/Code/docker-practice/section-01
+
+
+
+// 
+console.log("TEST")
+
+docker ps
+
+// submit form
+
+docker logs feedback-app 
+// nothing 
+
+// to restart server , we have stop and start container again
+docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback -v "/home/vijay/code-practice/docker-practice/docker-practice:/app" -v /app/node_modules feedback-node:volumes 
+
+
+// submit from 
+
+docker logs feedback-app
+// TEST
+
+// Add nodemon 
+// Add script
+// Change CMD 
+
+// remove image 
+docker rmi feedback-node:volumes
+
+// build image
+docker build -t feedback-node:volumes .
+
+// run container 
+docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback -v "/home/vijay/code-practice/docker-practice/docker-practice:/app" -v /app/node_modules feedback-node:volumes 
+
+
+//change  something in server.js
+TEST!!!!!
+
+// submit from 
+
+docker logs feedback-app
+// TEST!!!!!
+
