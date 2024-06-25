@@ -182,3 +182,44 @@ docker stop feedback-app
 
 // re run container 
 docker run -d -p 3000:80 --rm --name feedback-app feedback-node:volumes
+
+/////////////////////////// ///////////////////////
+// help 
+docker volume --help 
+
+
+// list volumes 
+docker volume ls 
+
+
+// stop container 
+docker stop feedback-app
+
+// list volumes , named volumes will not be deleted , anonymous volumes will be deleted after removing to container 
+docker volume ls
+
+// remove image 
+docker rmi feedback-node:volumes
+
+// remove volume in Dockerfile 
+// `VOLUME [ "/app/feedback" ]`  
+
+// rebuild image 
+docker build -t feedback-node:volumes .
+
+// create container with named volume
+docker run -d -p 3000:80 -rm --name feedback-app -v feedback:/app/feedback feedback-node:volumes
+
+// stop container , it will be deleted 
+docker stop feedback-app 
+
+// now list the container 
+docker volume ls
+
+
+// create container with named volume 
+docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback feedback-node:volumes
+
+// now values from last container will be presist
+
+///////////////////////////////////////////////////
