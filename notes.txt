@@ -137,3 +137,48 @@ docker start feedback-app
 problem ?
 data stored in one container will be lost after deletion of the container
 
+//////////////////////////////////////////////////
+
+//add in docker file
+VOLUME [ "/app/feedback" ]
+
+// build image
+docker build -t feedback-node:volumes .
+
+//  run container
+docker run -d -p 3000:80 --rm --name feedback-app feedback-node:volumes
+// error already exitstss
+
+docker ps 
+docker ps -a
+docker stop feedback-app 
+docker rm  feedback-app
+
+//  run container again 
+docker run -d -p 3000:80 --rm --name feedback-app feedback-node:volumes
+
+docker ps
+
+// change server.js file 
+await fs.rename(tempFilePath, finalFilePath);
+// to 
+await fs.copyFile(tempFilePath, finalFilePath);
+await fs.unlink(tempFilePath);
+
+
+// stop and remove 
+docker stop feedback-app
+docker rmi feedback-node:volumes
+
+
+// build image
+docker build -t feedback-node:volumes .
+
+// run container 
+docker run -d -p 3000:80 --rm --name feedback-app feedback-node:volumes
+
+// stop 
+docker stop feedback-app
+
+// re run container 
+docker run -d -p 3000:80 --rm --name feedback-app feedback-node:volumes
