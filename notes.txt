@@ -264,3 +264,15 @@ macOS / Linux: -v $(pwd):/app
 Windows: -v "%cd%":/app
 
 //////// //////////////////////////////////////////
+
+docker stop feedback-app
+
+docker rm feedback-app
+
+D:\Academind\Code\docker-practice\section-01
+
+
+
+// in order to store node_modules use anonymous volumes 
+docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback -v "D:\Academind\Code\docker-practice\section-01:/app" -v /app/node_modules feedback-node:volumes 
+
