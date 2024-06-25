@@ -109,3 +109,12 @@ docker run -p 8000:80 --rm vijaykrishnaabba/node-hello-world
 
 ////////////////////////////////////////////////// 
 
+// building image
+docker build -t feedback-node .
+
+// runnig docker 
+docker run -p 3000:80 -d --name feedback-app --rm feedback-node
+
+// checking current running docker 
+docker ps 
+
