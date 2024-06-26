@@ -400,3 +400,29 @@ it will not copy  node_modules with COPY . .
   node_modules
 
 ///////////////////////////////// /////////////////
+
+// server.js
+app.listen(process.env.PORT);
+
+// Dockerfile
+ENV PORT 80
+
+EXPOSE $PORT
+
+// with env port 
+docker run -d -p 3000:8000 --env PORT=8000 --rm --name feedback-app -v feedback:/app/feedback -v "/home/vijay/code-practice/docker-practice-main/docker-practice:/app:ro" -v /app/node_modules -v /app/temp feedback-node:env
+
+
+// you use --env or -e 
+// for multiple 
+// --e PROT=8000 -e Password=1234
+
+
+// add .evn file 
+// add in  PORT=8000 it 
+
+// now use env-file path
+docker run -d -p 3000:8000 --env-file ./.env --rm --name feedback-app -v feedback:/app/feedback -v "/home/vijay/code-practice/docker-practice-main/docker-practice:/app:ro" -v /app/node_modules -v /ap/temp feedback-node:env
+
+///////////////////// /////////////////////////////
+
