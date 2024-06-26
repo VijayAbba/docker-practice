@@ -335,6 +335,45 @@ docker logs feedback-app
 
 // we only over write bind mount  only specified in command so remove it from docker file and add it in command .
 
-docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback -v "/home/vijay/code-practice/docker-practice/docker-practice:/app:ro" -v /app/node_modules feedback-node:volumes 
+docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback -v "/home/vijay/code-practice/docker-practice/docker-practice:/app:ro" -v /app/node_modules -v /app/temp feedback-node:volumes 
+
+//////////////////////////////////////////////////
+57 
+
+docker ps
+
+docker volume --help 
+
+docker volumen ls
+
+docker volume create --help 
+
+docker volume create feedback-files
+
+docker volume ls
+
+
+// we can use it as 
+docker run -d -p 3000:80 --rm --name feedback-app -v feedback-files:/app/feedback -v "/home/vijay/code-practice/docker-practice/docker-practice:/app:ro" -v /app/node_modules -v /app/temp feedback-node:volumes 
+
+docker volume --help
+
+docker volume inspect feedback
+
+docker volume rm feedback-files 
+
+docker volume rm feedback 
+
+docker stop feedback-app
+
+docker volume rm feedback 
+
+docker run -d -p 3000:80 --rm 3000:80 --name feedback-app -v feedback:/app/feedback -v "/home/vijay/code-practice/docker-practice/docker-practice:/app:ro" -v /app/node_modules -v /app/temp feedback-node:volumes
+
+docker volume prune
+
+docker stop feedback-app
+
+docker volume ls
 
 //////////////////////////////////////////////////
