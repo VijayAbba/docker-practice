@@ -1,442 +1,82 @@
-docker build . // 
-
-docker run -p 3000:3000 ID // 
-
-docker stop NAME // stop container 
-
-docker run node // create new container from image // block terminal // runnign in foreground
-docker ps -a   // Shows all container 
-docker run -it node
-
-docker build . // builds image from current folder Dockerfile 
-docker ps // shows runing containers
-
-docker run -p 3000:80  fd503fd59e35
-
-    EXPLAIN: 
-        -p = publish 
-        3000 = local 
-        80 = container 
-        fd503fd59e35  = IMAGE ID
+📗 66-Module-Introduction
 
 
-    Added ! html 
-    rebuild image again
-    and 
-  docker run -p 3000:80 ID 
 
-
-docker start NAME  // start container  // dont block terminal // running in background
-
-docker run -p 3000:80 -d 27af218fcefb // -d detch mode
-docker container attach CONTAINER_NAME/CONTAINER_ID // attach in terminal 
-
-docker logs CONTAINER_NAME/CONTAINER_ID // prints all previous logs
-docker logs -f CONTAINER_NAME/CONTAINER_ID // follows 
-docker start -a CONTAINER_NAME/CONTAINER_ID // start with attach mode 
-
-docker run IMAGE_ID // can't run interactively // ex: input in python
-
-docker run -it IMAGE_ID // 
-  // i = interactive , Keep STDIN open even if not attach
-  // t = tty , Allocate a pseudo-TTY , TTY terminal
-
-// then if you run 
-docker start CONTAINER_NAME 
-    // you can't access terminal because detch mode
-docker start -a CONTAINER_NAME 
-    // start with interactive terminal but only one input / only output 
-
-docker start -a -i  stoic_hamilton // 
-
-docker rm CONTAINER_NAME // removes stopped container
-docker rm CONTAINER_NAME CONTAINER_NAME // remove multiple container , seperate by ,
-
-docker container prune // remove al stopped containers at once
-docker rmi IMAGE_ID // removes if image is not used, so container should be removed first
-docker rmi IMAGE_ID  IMAGE_ID // remove multiple 
-
-docker image prune // removes all unused images
-
-
-docker run -p 3000:80 -d --rm  d74954471f2e // --rm : Automatically removes the container when it exits
-
-
-docker image inspect IMAGE_ID // Inspecting Images
-
-
-docker cp dummy/. CONTAINER_NAME:/test // /. = include all files in that folder 
-
---name string  // Assing a name to the container
-docker run -p 3000:80 -d --rm --name goalsapp IMAGE_ID
-
-
-// name:tag
-FROM node:14
-
--t , --tag list // Name and optonally a tag in the 'name:tag' format
-
-
-// Assing name to image   // -t name:tag
-docker build -t goals:latest 
-
-
-side-note: if you want to remove ALL images, incl.
-tagged images, you need to run docker images prune -a 
 
 //////////////////////////////////////////////////
-// share: docker push IMAGE_NAME
-// use: docker pull IMAGE_NAME
+📗 67-Case-1-Container-to-WWW-Communication
 
-// rename is cloning 
-// renaming to docker hub name 
 
-docker tag IMAGE_NAME:latest academind/node-hello-world 
 
-docker push academind/node-hello-world
-
-////////////////////////////////////////////////// 
-
-docker image prune -a
-
-docker logout
-
-docker run -p 8000:80 --rm vijaykrishnaabba/node-hello-world
-
-// docker run will pulls automatically, if not exists.
-
-// if exists locally it will not update to latest automatically.
-
-////////////////////////////////////////////////// 
-
-// building image
-docker build -t feedback-node .
-
-// runnig docker 
-docker run -p 3000:80 -d --name feedback-app --rm feedback-node
-
-// checking current running docker 
-docker ps 
 
 //////////////////////////////////////////////////
-
-docker ps
-
-docker stop  feedback-app
-// file awesome.txt will be deleted
-
-// running without --rm
-docker run -p 3000:80 -d --name feedback-app feedback-node
+📗 68-Case-2-Container-to-Local-Host-Machine-Communication
 
 
-docker stop  feedback-app
 
-docker start feedback-app
-// awsome file will presist now , becuase we don't not deleted container 
 
-problem ?
-data stored in one container will be lost after deletion of the container
+//////////////////////////////////////////////////
+📗 69-Case-3-Container-to-Container-Communication
+
+
+
+
+//////////////////////////////////////////////////
+📗 70-Analyzing-the-Demo-App
+
+
+
 
 //////////////////////////////////////////////////
-
-//add in docker file
-VOLUME [ "/app/feedback" ]
-
-// build image
-docker build -t feedback-node:volumes .
-
-//  run container
-docker run -d -p 3000:80 --rm --name feedback-app feedback-node:volumes
-// error already exitstss
-
-docker ps 
-docker ps -a
-docker stop feedback-app 
-docker rm  feedback-app
-
-//  run container again 
-docker run -d -p 3000:80 --rm --name feedback-app feedback-node:volumes
-
-docker ps
-
-// change server.js file 
-await fs.rename(tempFilePath, finalFilePath);
-// to 
-await fs.copyFile(tempFilePath, finalFilePath);
-await fs.unlink(tempFilePath);
-
-
-// stop and remove 
-docker stop feedback-app
-docker rmi feedback-node:volumes
-
-
-// build image
-docker build -t feedback-node:volumes .
-
-// run container 
-docker run -d -p 3000:80 --rm --name feedback-app feedback-node:volumes
-
-// stop 
-docker stop feedback-app
-
-// re run container 
-docker run -d -p 3000:80 --rm --name feedback-app feedback-node:volumes
-
-/////////////////////////// ///////////////////////
-// help 
-docker volume --help 
-
-
-// list volumes 
-docker volume ls 
-
-
-// stop container 
-docker stop feedback-app
-
-// list volumes , named volumes will not be deleted , anonymous volumes will be deleted after removing to container 
-docker volume ls
-
-// remove image 
-docker rmi feedback-node:volumes
-
-// remove volume in Dockerfile 
-// `VOLUME [ "/app/feedback" ]`  
-
-// rebuild image 
-docker build -t feedback-node:volumes .
-
-// create container with named volume
-docker run -d -p 3000:80 -rm --name feedback-app -v feedback:/app/feedback feedback-node:volumes
-
-// stop container , it will be deleted 
-docker stop feedback-app 
-
-// now list the container 
-docker volume ls
-
-
-// create container with named volume 
-docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback feedback-node:volumes
-
-// now values from last container will be presist
-
-///////////////////////////////////////////////////
-
-If you start a container without --rm option, the anonymous volume would NOT be removed, even if you remove the container (with docker rm ...)
-
-re-create and re-run the container again, a new anonymous volume will be created
-
-Now you just start piling up a bunch of unused anonymous volumes - you can clear them via 
-
-docker volume rm VOL_NAME 
-or 
-docker volume prune
-
-///////////////////////////////////////////////////
-
-//change in source code not reflect in container 
-
-// bind mounts 
-// when source code in changed then it will change in container 
-
-docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback -v "D:\Academind\Code\docker-practice\section-01:/app" feedback-node:volumes
-
-docker ps
-
-docker ps -a
-
-// without --rm 
-docker run -d -p 3000:80 --name feedback-app -v feedback:/app/feedback -v "D:\Academind\Code\docker-practice\section-01:/app" feedback-node:volumes
-
-docker ps -a
-
-docker logs feedback-app
-//Error: Cannot find module 'express'
-
-///////////////////////////////////////////////////
-
-If you don't always want to copy and use the full path, you can use these **shortcuts**:
-
-macOS / Linux: -v $(pwd):/app
-
-Windows: -v "%cd%":/app
-
-//////// //////////////////////////////////////////
-
-docker stop feedback-app
-
-docker rm feedback-app
-
-D:\Academind\Code\docker-practice\section-01
+📗 71-Creating-a-Container-Communicating-to-the-Web-WWW
 
 
 
-// in order to store node_modules use anonymous volumes 
-docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback -v "D:\Academind\Code\docker-practice\section-01:/app" -v /app/node_modules feedback-node:volumes 
+
+//////////////////////////////////////////////////
+📗 72-Making-Container-to-Host-Communication-Work
+
+
+
+
+//////////////////////////////////////////////////
+📗 73-Container-to-Container-Communication-A-Basic-Solution
+
+
+
+
+//////////////////////////////////////////////////
+📗 74-Introducing-Docker-Networks-Elegant-Container-to-Container-Communication
+
+
+
+
+//////////////////////////////////////////////////
+📗 75-How-Docker-Resolves-IP-Addresses
+
+
+
+
+//////////////////////////////////////////////////
+📗 76-Docker-Network-Drivers DOC
+
+
+
+
+//////////////////////////////////////////////////
+📗 77-Module-Summary
+
+
+
+
+//////////////////////////////////////////////////
+📗 78-Module-Resources DOC
+
+
+
 
 //////////////////////////////////////////////////
 
 
-/mnt/d/Academind/Code/docker-practice/section-01
 
 
-
-// 
-console.log("TEST")
-
-docker ps
-
-// submit form
-
-docker logs feedback-app 
-// nothing 
-
-// to restart server , we have stop and start container again
-docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback -v "/home/vijay/code-practice/docker-practice/docker-practice:/app" -v /app/node_modules feedback-node:volumes 
-
-
-// submit from 
-
-docker logs feedback-app
-// TEST
-
-// Add nodemon 
-// Add script
-// Change CMD 
-
-// remove image 
-docker rmi feedback-node:volumes
-
-// build image
-docker build -t feedback-node:volumes .
-
-// run container 
-docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback -v "/home/vijay/code-practice/docker-practice/docker-practice:/app" -v /app/node_modules feedback-node:volumes 
-
-
-//change  something in server.js
-TEST!!!!!
-
-// submit from 
-
-docker logs feedback-app
-// TEST!!!!!
-
-
-//////////////////////////////////////////////////
-
-// add :ro
-// This is /app/feedback is read and writable because more specificity
-// but temp is should be read and write  , so add temp.
-
-// remove temp volume from docker file
-
-// we only over write bind mount  only specified in command so remove it from docker file and add it in command .
-
-docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback -v "/home/vijay/code-practice/docker-practice/docker-practice:/app:ro" -v /app/node_modules -v /app/temp feedback-node:volumes 
-
-//////////////////////////////////////////////////
-57 
-
-docker ps
-
-docker volume --help 
-
-docker volumen ls
-
-docker volume create --help 
-
-docker volume create feedback-files
-
-docker volume ls
-
-
-// we can use it as 
-docker run -d -p 3000:80 --rm --name feedback-app -v feedback-files:/app/feedback -v "/home/vijay/code-practice/docker-practice/docker-practice:/app:ro" -v /app/node_modules -v /app/temp feedback-node:volumes 
-
-docker volume --help
-
-docker volume inspect feedback
-
-docker volume rm feedback-files 
-
-docker volume rm feedback 
-
-docker stop feedback-app
-
-docker volume rm feedback 
-
-docker run -d -p 3000:80 --rm 3000:80 --name feedback-app -v feedback:/app/feedback -v "/home/vijay/code-practice/docker-practice/docker-practice:/app:ro" -v /app/node_modules -v /app/temp feedback-node:volumes
-
-docker volume prune
-
-docker stop feedback-app
-
-docker volume ls
-
-//////////////////////////////////////////////////
-// Comment
-# COPY ..
-
-// build image
-docker build -t feedback-node:no-copy .
-
-// running  container with no-copy image
-docker run -d --rm -p 3000:80 --name feedback-app -v feedback:/app/feedback -v "/home/vijay/code-practice/docker-practice-main/docker-practice:/app:ro" -v /app/node_modules -v /app/temp feedback-node:no-copy
-
-// we use during development , to reflect changes so we use bind-mount
-// but in production we need copy
-
-// uncomment COPY 
-
-///////////////////////////////////////////////////
-
-it will not copy  node_modules with COPY . .
-
-// file
-.dockerignore
-  node_modules
-
-///////////////////////////////// /////////////////
-
-// server.js
-app.listen(process.env.PORT);
-
-// Dockerfile
-ENV PORT 80
-
-EXPOSE $PORT
-
-// with env port 
-docker run -d -p 3000:8000 --env PORT=8000 --rm --name feedback-app -v feedback:/app/feedback -v "/home/vijay/code-practice/docker-practice-main/docker-practice:/app:ro" -v /app/node_modules -v /app/temp feedback-node:env
-
-
-// you use --env or -e 
-// for multiple 
-// --e PROT=8000 -e Password=1234
-
-
-// add .evn file 
-// add in  PORT=8000 it 
-
-// now use env-file path
-docker run -d -p 3000:8000 --env-file ./.env --rm --name feedback-app -v feedback:/app/feedback -v "/home/vijay/code-practice/docker-practice-main/docker-practice:/app:ro" -v /app/node_modules -v /ap/temp feedback-node:env
-
-///////////////////// /////////////////////////////
-// Dockerfile
-ARG DEFAULT_PORT=80
-
-ENV PORT $DEFAULT_PORT
-
-
-// here default port will be 80
-docker build -t feedback-node:web-app .
-
-// 8000
-docker build -t feedback-node:dev --build-arg DEFAULT_PORT=8000 .
-
-//ADD ARG above ENV in Dockerfile which optimize image builds
-
-//////////////////////////////////////////////////
